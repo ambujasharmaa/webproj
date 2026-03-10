@@ -1,177 +1,185 @@
-# Yantra - Static HTML/CSS/JS Version
+# 🌐 Static Web Application — HTML, CSS & JavaScript
 
-A complete conversion of the Yantra Next.js project to **pure HTML/CSS/JavaScript** with no build tools, frameworks, or dependencies (except Chart.js for graphs).
+> A fully client-side web application built without frameworks or build tools.
+> Developed by **Ambuja Sharma**, **Nikhil**, and **Devansh**.
 
-## 🚀 Quick Start
+---
 
-### Option 1: Open Directly in Browser
-Simply open `index.html` in your web browser. That's it!
+## 📌 Overview
+
+This project recreates the functionality of the original application using only **HTML, CSS, and vanilla JavaScript** — no React, no Next.js, no bundlers. Everything runs in the browser and persists using **localStorage**.
+
+The only external dependency is **[Chart.js](https://www.chartjs.org/)**, loaded via CDN for rendering graphs.
+
+---
+
+## 🚀 Getting Started
+
+No installation or build steps required.
+
+### Option 1 — Open Directly in a Browser
 
 ```bash
-cd static/
-# Then open index.html in any modern web browser
+cd static
 ```
 
-### Option 2: Use a Local Server (Recommended)
-For better experience and to avoid CORS issues:
+Then open `index.html` in any modern browser.
+
+---
+
+### Option 2 — Run with a Local Server *(Recommended)*
+
+A local server avoids browser security restrictions (e.g. CORS issues with file URLs).
+
+**Using Python:**
 
 ```bash
-# Using Python 3
-cd static/
+cd static
 python3 -m http.server 8000
-# Then open http://localhost:8000
+```
 
-# Or using Node.js
-npx http-server static/
+**Using Node.js:**
 
-# Or using PHP
-cd static/
+```bash
+npx http-server static
+```
+
+**Using PHP:**
+
+```bash
+cd static
 php -S localhost:8000
 ```
 
-## 📁 Project Structure
+Then visit: **http://localhost:8000**
+
+---
+
+## 🗂️ Project Structure
 
 ```
 static/
-├── index.html              # Main HTML file (entry point)
+│
+├── index.html
+│
 ├── css/
-│   ├── global.css         # Core styles and utilities
-│   └── components.css     # Component styles
+│   ├── global.css          # Base styles and utility classes
+│   └── components.css      # Component-specific styles
+│
 ├── js/
-│   ├── router.js          # Simple router (hash-based)
-│   ├── storage.js         # LocalStorage wrapper
-│   ├── api.js             # API & mock data
-│   ├── components.js      # Reusable components
-│   ├── app.js             # App initialization
+│   ├── app.js              # App entry point
+│   ├── router.js           # Hash-based routing
+│   ├── storage.js          # localStorage wrapper
+│   ├── api.js              # Mock API layer
+│   ├── components.js       # Reusable UI components
+│   │
 │   └── pages/
-│       ├── login.js       # Login page
-│       ├── signup.js      # Signup page
-│       ├── home.js        # Home/Feed page
-│       └── profile.js     # Profile page
-└── README.md              # This file
+│       ├── login.js
+│       ├── signup.js
+│       ├── home.js
+│       ├── profile.js
+│       ├── events.js
+│       ├── groups.js
+│       ├── journal.js
+│       └── resources.js
+│
+├── public/                 # Static assets (images, icons, SVGs)
+└── README.md
 ```
+
+---
 
 ## ✨ Features
 
-- ✅ **No build step** - Open and run immediately
-- ✅ **No external dependencies** - Only Chart.js for graphs (CDN)
-- ✅ **Vanilla JavaScript** - No React, Vue, or frameworks
-- ✅ **Hash-based routing** - Works on any static server
-- ✅ **localStorage persistence** - User data saved locally
-- ✅ **Responsive design** - Works on desktop and mobile
-- ✅ **Toast notifications** - User feedback system
-- ✅ **Form validation** - Input validation on signup/login
-- ✅ **Interactive charts** - Activity graph on profile page
-- ✅ **Mock API** - Pre-configured sample data
+- ✅ Runs entirely in the browser — no server needed
+- ✅ Zero frameworks or build tools
+- ✅ Hash-based client-side routing
+- ✅ Data persistence via localStorage
+- ✅ Login and signup with form validation
+- ✅ Toast notifications for user feedback
+- ✅ Interactive charts powered by Chart.js
+- ✅ Responsive layout that works on mobile
+
+---
 
 ## 🔐 Authentication
 
-### Demo Credentials
+Authentication is simulated using localStorage — no real backend is involved.
 
-Login page allows any username/password combination. For demo:
+Any username with any password will work for testing:
 
-- **Username:** `ambuja`
-- **Password:** (anything)
-
-Or try:
-- **Username:** `demo`
-- **Password:** (anything)
-
-All data is stored in browser's LocalStorage and is session-based.
-
-## 📖 Usage Guide
-
-### Navigation
-
-- **Home** (`/`) - Community feed with posts and activity
-- **Profile** (`/profile`) - User profile with stats and charts
-- **Login** (`/login`) - Authentication page
-- **Signup** (`/signup`) - Create new account
-
-Use the header navigation or direct URLs with hash:
 ```
-http://localhost:8000/#/login
-http://localhost:8000/#/profile
-http://localhost:8000/#/home
-http://localhost:8000/#/signup
+Username: ambuja      Password: anything
+Username: demo        Password: anything
 ```
 
-### Creating Components
+User session data is stored in the browser's localStorage.
 
-To create a reusable component:
+---
+
+## 🧭 Navigation
+
+The app uses **hash-based routing**, so all URLs look like:
+
+| Page    | URL                          |
+|---------|------------------------------|
+| Home    | `http://localhost:8000/#/home`    |
+| Profile | `http://localhost:8000/#/profile` |
+| Login   | `http://localhost:8000/#/login`   |
+| Signup  | `http://localhost:8000/#/signup`  |
+
+Programmatic navigation:
 
 ```javascript
-function MyComponent(props) {
-  const container = createElement('div', 'my-class');
-  
-  const title = createElement('h1', 'text-2xl font-bold', 'Hello World');
-  container.appendChild(title);
-  
-  return container;
-}
+Router.navigate('/home')
+Router.go('/profile')
 ```
 
-### Creating Pages
+---
 
-To create a new page:
+## 💾 Storage API
+
+A thin wrapper around localStorage is provided via `storage.js`:
 
 ```javascript
-function MyPage() {
-  const container = createElement('div', 'flex flex-col');
-  
-  // Build your page
-  container.appendChild(Header());
-  container.appendChild(createElement('h1', 'text-3xl', 'My Page'));
-  
-  return container;
-}
+// Store and retrieve data
+Storage.setItem('key', data)
+const value = Storage.getItem('key')
 
-// Register the route
-Router.register('/mypage', MyPage);
+// User session helpers
+Storage.setUser(userData)
+Storage.setToken(token)
+Storage.isLoggedIn()   // returns true/false
+Storage.logout()
 ```
 
-### Using Storage
+---
+
+## 🔌 Mock API
+
+`api.js` simulates async backend requests using Promises:
 
 ```javascript
-// Save data
-Storage.setItem('myKey', { some: 'data' });
-
-// Get data
-const data = Storage.getItem('myKey');
-
-// User management
-Storage.setUser(userData);
-Storage.setToken(authToken);
-Storage.isLoggedIn(); // true/false
-Storage.logout();
-```
-
-### Using API
-
-```javascript
-// Login
+// Authentication
 API.login(username, password).then(response => {
-  console.log(response.user);
-});
+  console.log(response.user)
+})
 
-// Get user
-API.getUser(userId).then(response => {
-  console.log(response.user);
-});
-
-// Create post
+// Create content
 API.createPost(content).then(response => {
-  console.log(response.post);
-});
+  console.log(response.post)
+})
 
-// Show notifications
-API.showToast('Success!', 'success');
-API.showToast('Error occurred', 'error');
+// Show toast notifications
+API.showToast("Saved successfully!", "success")
+API.showToast("Something went wrong.", "error")
 ```
+
+---
 
 ## 🎨 Styling
 
-This project uses a utility-first CSS approach similar to Tailwind, but as plain CSS classes:
+The CSS follows a **utility-first approach** inspired by Tailwind, written from scratch:
 
 ```html
 <div class="flex gap-4 p-6 rounded-lg shadow">
@@ -183,135 +191,44 @@ This project uses a utility-first CSS approach similar to Tailwind, but as plain
 </div>
 ```
 
-### Common Classes
+Stylesheets are located in:
 
-**Flexbox:**
-- `flex` `flex-col` `gap-1` through `gap-6`
-- `items-center` `items-start` `justify-center` `justify-between`
-
-**Spacing:**
-- `p-4` `px-6` `py-8` `pt-4` `mt-4` `mb-4`
-
-**Typography:**
-- `text-base` `text-sm` `text-lg` `text-2xl` `text-3xl`
-- `font-medium` `font-semibold` `font-bold`
-- `text-gray-400` `text-gray-600`
-
-**Components:**
-- `btn btn-primary` `btn btn-secondary` `btn btn-danger`
-- `card` `badge badge-primary`
-- `avatar` `avatar-sm` `avatar-lg`
-- `form-input` `form-textarea` `form-checkbox`
-
-**Display:**
-- `hidden` `block` `inline-block` `grid grid-cols-2`
-
-See `css/global.css` and `css/components.css` for all available classes.
-
-## 🔄 Routing
-
-The router is hash-based, meaning URLs work like:
-- `http://localhost:8000/#/home`
-- `http://localhost:8000/#/profile`
-- `http://localhost:8000/#/login`
-
-Navigate programmatically:
-```javascript
-Router.navigate('/home');
-Router.go('/profile');
-```
-
-## 💾 Data Persistence
-
-All user data is stored in browser's LocalStorage:
-- User profile
-- Authentication token
-- Custom data
-
-Data persists between page refreshes but is cleared on browser cache clear.
-
-## 🔌 Extending the App
-
-### Add a New Page
-
-1. Create `js/pages/mypage.js`:
-```javascript
-function MyPage() {
-  const container = createElement('div');
-  // Build your page
-  return container;
-}
-Router.register('/mypage', MyPage);
-```
-
-2. Add script reference in `index.html`:
-```html
-<script src="js/pages/mypage.js"></script>
-```
-
-### Add New CSS
-
-Add classes to `css/components.css` or `css/global.css`.
-
-### Add API Endpoints
-
-Add mock methods to `API` class in `js/api.js`:
-```javascript
-static async getMyData() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ success: true, data: [] });
-    }, 500);
-  });
-}
-```
-
-## 📱 Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-Requires ES6 JavaScript support.
-
-## 🚀 Performance
-
-- **Zero build time** - Open instantly
-- **No transpilation** - Native JavaScript
-- **Minimal dependencies** - Only Chart.js from CDN
-- **Small bundle size** - ~30KB of custom code
-- **Fast loading** - No framework overhead
-
-## ⚠️ Limitations
-
-- No backend integration (all data is mock/local)
-- No real-time sync across tabs
-- Limited to browser's localStorage capacity (~5MB)
-- Hash routing (not traditional URLs)
-
-## 🎓 Learning Resources
-
-This project demonstrates:
-- Vanilla JavaScript DOM manipulation
-- Component architecture without frameworks
-- Client-side routing
-- Form handling and validation
-- localStorage API usage
-- Chart.js integration
-- CSS utility-first design
-- Mock API patterns
-
-Perfect for learning web development fundamentals!
-
-## 📝 License
-
-This is a demonstration project.
-
-## 🤝 Contributing
-
-Want to extend this? Just edit the files and refresh your browser!
+| File | Purpose |
+|------|---------|
+| `css/global.css` | Base resets, typography, utility classes |
+| `css/components.css` | Buttons, cards, modals, forms |
 
 ---
 
-**Made with ❤️ - Pure HTML, CSS, and JavaScript**
+## 🌍 Browser Support
+
+Works on all modern browsers that support ES6+:
+
+- Chrome
+- Firefox
+- Edge
+- Safari
+- Mobile browsers (iOS & Android)
+
+---
+
+## ⚠️ Limitations
+
+Since this is a fully static implementation:
+
+- No backend — all logic runs in the browser
+- Data is stored only in localStorage (not synced across devices or sessions)
+- Clearing browser data will reset all stored information
+- Routing relies on hash URLs (`#/page`)
+
+---
+
+## 👥 Authors
+
+Built with ❤️ by:
+
+| Name | GitHub |
+|------|--------|
+| Ambuja Sharma | [@ambujasharmaa](https://github.com/ambujasharmaa) |
+| Nikhil | — |
+| Devansh | — |
