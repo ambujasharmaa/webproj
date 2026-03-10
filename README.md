@@ -1,4 +1,4 @@
-# 🌐 Static Web Application — HTML, CSS & JavaScript
+# Web Dev Project
 
 > A fully client-side web application built without frameworks or build tools.
 > Developed by **Ambuja Sharma**, **Nikhil**, and **Devansh**.
